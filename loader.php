@@ -5,22 +5,31 @@
  * Date: 3.4.17
  * Time: 13:22
  */
+
+// Load config
+foreach(scandir("./config/") as $fileName)
+{
+    if($fileName != "." && $fileName != "..") require "./config/".$fileName;
+}
+
+// Init module system
 require "./modules/Main.php";
 $MAIN = new Main();
 
-//print_r($MAIN->modules);
+// Load all modules
 foreach($MAIN->modules as $name => $fileName)
 {
     include "./modules/".$fileName.".php";
 }
-
+$MAIN->modulesLoaded();
 
 $_ERSYN['path'] = $_GET['ERSYN_path'];
-$_ERSYN['GET'] = $_GET;
-$_ERSYN['POST'] = $_POST;
+unset($_GET['ERSYN_path']);
 
+$MAIN->Ac();
 
+// Load page by
 if(substr($_ERSYN['path'],-1) == "/" || substr($_ERSYN['path'],-1) == "") $_ERSYN['path'] .= "index";
 $pathLoad = './pages/'.$_ERSYN['path'].'.php';
-if(!file_exists($pathLoad)) $pathLoad = "./templates/default/404.php";
+if(!file_exists($pathLoad)) $pathLoad = "./templates/".$_CONFIG['templ']['defaultTemplate']."/404.php";
 include $pathLoad;

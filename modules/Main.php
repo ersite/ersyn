@@ -17,6 +17,15 @@ class Main
         $this->loadModules();
     }
 
+    public function modulesLoaded()
+    {
+        $this->config = new Config($this);
+    }
+
+    public static function isValidDir($name) {
+        return ($name != "." && $name != "..")? true : false;
+    }
+
     public function loadModules() {
         $dir = scandir("./modules");
         foreach($dir as $moduleName) {

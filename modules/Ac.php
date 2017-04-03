@@ -6,7 +6,7 @@
  * Date: 3.4.17
  * Time: 13:33
  */
-class Ac
+class Ac extends Main
 {
     public $db = [];
     public $ftp = [];
@@ -16,6 +16,7 @@ class Ac
     {
         global $_CONFIG;
         $this->MAIN = $main;
+
         if(count($_CONFIG['db']) > 0) {
             foreach ($_CONFIG['db'] as $id => $dbData) {
                 $this->addDatabase($id, $dbData['host'], $dbData['user'], $dbData['pass'], $dbData['database']);
