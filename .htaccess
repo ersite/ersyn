@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond $1 !^(loader\.php)
+RewriteRule ^(.*)$ loader.php?ERSYN_path=$1 [L,QSA]
