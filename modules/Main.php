@@ -10,6 +10,7 @@ class Main
 {
 
     public $modules = [];
+    public $com = [];
 
     public function __construct()
     {
@@ -20,17 +21,19 @@ class Main
         $dir = scandir("./modules");
         foreach($dir as $moduleName) {
             if($moduleName != "." && $moduleName != ".." && $moduleName != "Main.php")
-            $this->modules[substr($moduleName,0,-4)] = $moduleName;
+            $this->modules[] = substr($moduleName,0,-4);
         }
     }
 
     public function __call($func,$a){
         if(in_array($func,$this->modules)){
-            require './modules/';
-            //array_unshift($a,$this->conn);
-            //return call_user_func_array($func,$a);
-        }else{
-            // replace with your own error handler.
-            die("$func is not a valid FTP function");
+            array_unshift($a,$this);
+            $return = "";
+            foreach($a as $num => $data) {
+                $end[] = '$a['.$num.']';
+            }
+            eval('$return = new '.$func.'('.implode(",",$end).');');
+            return $return;
         }
-    }}
+    }
+}

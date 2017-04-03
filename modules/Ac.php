@@ -10,12 +10,16 @@ class Ac
 {
     public $db = [];
     public $ftp = [];
+    private $MAIN = [];
 
-    public function __construct()
+    public function __construct($main)
     {
         global $_CONFIG;
-        foreach($_CONFIG['db'] as $id) {
-            $this->addDatabase($id,$);
+        $this->MAIN = $main;
+        if(count($_CONFIG['db']) > 0) {
+            foreach ($_CONFIG['db'] as $id => $dbData) {
+                $this->addDatabase($id, $dbData['host'], $dbData['user'], $dbData['pass'], $dbData['database']);
+            }
         }
 
     }
