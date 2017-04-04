@@ -16,13 +16,6 @@ foreach(scandir("./config/") as $fileName)
 require "./modules/Main.php";
 $MAIN = new Main();
 
-// Load all modules
-foreach($MAIN->modules as $name => $fileName)
-{
-    include "./modules/".$fileName.".php";
-}
-$MAIN->modulesLoaded();
-
 $_ERSYN['path'] = $_GET['ERSYN_path'];
 unset($_GET['ERSYN_path']);
 

@@ -16,7 +16,7 @@ class Ac extends Main
     {
         global $_CONFIG;
         $this->MAIN = $main;
-
+        echo "Ac loaded";
         if(count($_CONFIG['db']) > 0) {
             foreach ($_CONFIG['db'] as $id => $dbData) {
                 $this->addDatabase($id, $dbData['host'], $dbData['user'], $dbData['pass'], $dbData['database']);

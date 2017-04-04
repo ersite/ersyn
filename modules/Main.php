@@ -17,11 +17,6 @@ class Main
         $this->loadModules();
     }
 
-    public function modulesLoaded()
-    {
-        $this->config = new Config($this);
-    }
-
     public static function isValidDir($name) {
         return ($name != "." && $name != "..")? true : false;
     }
@@ -29,9 +24,23 @@ class Main
     public function loadModules() {
         $dir = scandir("./modules");
         foreach($dir as $moduleName) {
-            if($moduleName != "." && $moduleName != ".." && $moduleName != "Main.php")
-            $this->modules[] = substr($moduleName,0,-4);
+            if($moduleName != "." && $moduleName != ".." && $moduleName != "Main.php") {
+                $this->modules[] = substr($moduleName, 0, -4);
+                $this->initModule($moduleName);
+            }
         }
+
+        $this->modulesLoaded();
+
+    }
+
+    public function modulesLoaded()
+    {
+        $this->config = new Config($this);
+    }
+
+    public function initModule($moduleName) {
+        include "./modules/" . $moduleName;
     }
 
     public function __call($func,$a){

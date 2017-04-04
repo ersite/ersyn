@@ -18,9 +18,10 @@ class Config
 
     private function configList() // Get list of config files
     {
+        $configList = [];
         foreach(scandir("./config/") as $fileName)
         {
-            if($this->main->isValidDir($fileName)) $configList = $fileName;
+            if($this->main->isValidDir($fileName)) $configList[] = $fileName;
         }
         return $configList;
     }
