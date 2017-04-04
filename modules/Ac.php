@@ -31,7 +31,7 @@ class Ac extends Main
 
     public function useDatabase($id,$query) {
         $query = $this->db[$id]->query($query);
-        while($row = $query->fetch_accos()) {
+        while($row = $query->fetch_assoc()) {
             $return[] = $row;
         }
         return $row;
